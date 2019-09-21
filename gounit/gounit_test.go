@@ -29,10 +29,10 @@ func BenchmarkSetNum(b *testing.B) {
 
 // 补充命令
 /*
-	1.生成性能分析文件： go test -bench=.-benchtime="3s" -cpuprofile=profile.out
-	2.查看性能分析文件： go tool pprof xxx_test profile.out   =>  进入后可以通过top n 查看耗时情况
-	3.输出在web查看文件： go tool pprof --web xxx_test profile.out   =>  进入后可以通过top n 查看耗时情况,需要安装Graphviz
-	4.输出为pdf：	go tool pprof --pdf profile.out > profile.pdf		// 需要安装Graphviz
+	1.生成性能分析文件：  go test -run=^$ -bench=. -cpuprofile=profile.out
+	2.查看性能分析文件：  go tool pprof xxx_test profile.out   			=>  进入后可以通过top n 查看耗时情况
+	3.输出在web查看文件: go tool pprof -http=:8080 profile.out   			=>  需要安装Graphviz
+	4.输出为pdf  	   go tool pprof --pdf profile.out > profile.pdf	=>  需要安装Graphviz
  */
 
 /*

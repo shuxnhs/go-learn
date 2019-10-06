@@ -46,6 +46,9 @@ func main()  {
 
 
 	myChan <- "hxh"
+	fmt.Println("管道的长度：", len(myChan))
+	fmt.Println("管道的容量：", cap(myChan))
+	// 已写满的管道继续写入或已为空的管道继续读出会使主协程阻塞，死锁
 	myChan <- "wxz"
 	time.Sleep(2 * time.Second)
 	go func() {

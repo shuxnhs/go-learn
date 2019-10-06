@@ -12,6 +12,10 @@ func work(count int, name string, workQueue chan string)  {
 	}
 	workQueue <- name+ "finish"
 }
+
+/**
+ * @desc： 管道的调度例子
+ */
 func main()  {
 	// 如果没有管道调度，主协程执行完毕就会结束,不会管子协程
 	workQueue := make(chan string, 3)

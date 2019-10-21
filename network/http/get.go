@@ -6,10 +6,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"time"
 )
 
-func HandlecClientError(err error, when string)  {
-	if err != nil{
+func HandlecClientError(err error, when string) {
+	if err != nil {
 		fmt.Println("error happen at", when)
 		os.Exit(500)
 	}
@@ -29,11 +30,27 @@ func GetRequest(url string) string {
 	return string(bytes)
 }
 
-func main()  {
+func GoTest(url string) {
+	go func() {
+		for i := 0; i < 1000; i++ {
+			response := GetRequest(url)
+			fmt.Println(response)
+		}
+	}()
+}
+
+func main() {
 	// 读取器，获取终端输入的URL去请求网页
 	reader := bufio.NewReader(os.Stdin)
-	lineByte,_,err := reader.ReadLine()
+	lineByte, _, err := reader.ReadLine()
 	HandlecClientError(err, "readLine")
-	response := GetRequest(string(lineByte))
-	fmt.Println(response)
+	url := string(lineByte)
+	num := 100
+	go func(num int, url string) {
+		for i := 0; i < num; i++ {
+			GoTest(url)
+		}
+	}(num, url)
+
+	time.Sleep(1000000 * time.Second)
 }
